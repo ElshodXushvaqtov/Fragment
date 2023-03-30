@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.myapplication.databinding.FragmentCabinetBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,9 +33,17 @@ class CabinetFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cabinet, container, false)
+    ): View {
+       val binding=FragmentCabinetBinding.inflate(inflater,container,false)
+        val name=binding.name.text
+        val password=binding.password.text
+        val user=User(name.toString(),password.toString())
+        binding.next.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container2,OrderFragment.newInstance(user))
+                .commit()
+        }
+        return binding.root
     }
 
     companion object {
